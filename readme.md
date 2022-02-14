@@ -2,6 +2,8 @@
 
 Wordle implementation on the TI CE calculator family (TI-83 Premium CE, TI-84 Plus CE).
 
+![](screenshot.png)
+
 Uses two AppVars:
 - WORDLE (English 5-letter word list, ripped from the original game), archive
 - WORDLE2 (game data), RAM
