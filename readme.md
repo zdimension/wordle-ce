@@ -6,6 +6,8 @@ Uses two AppVars:
 - WORDLE (English 5-letter word list, ripped from the original game), archive
 - WORDLE2 (game data), RAM
 
+Word lists are available in English or French, upload one of the two.
+
 Use keypad for letter input, `Enter` to submit a word, `Delete` to delete a letter and `Clear` to exit.
 
 Requires the [CE Toolchain libraries](https://tiny.cc/clibs).
