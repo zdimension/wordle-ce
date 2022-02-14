@@ -15,11 +15,11 @@
 void init_palette()
 {
 	gfx_palette[EMPTY] = gfx_RGBTo1555(0x12, 0x12, 0x13);
-    gfx_palette[WRONG] = gfx_RGBTo1555(0x3a, 0x3a, 0x3c);
-    gfx_palette[PARTIAL] = gfx_RGBTo1555(0xb5, 0x9f, 0x3b);
-    gfx_palette[CORRECT] = gfx_RGBTo1555(0x53, 0x8d, 0x4e);
-    gfx_palette[TEXT] = gfx_RGBTo1555(255, 255, 255);
-    gfx_palette[STATUS] = gfx_RGBTo1555(0, 0, 0);
+	gfx_palette[WRONG] = gfx_RGBTo1555(0x3a, 0x3a, 0x3c);
+	gfx_palette[PARTIAL] = gfx_RGBTo1555(0xb5, 0x9f, 0x3b);
+	gfx_palette[CORRECT] = gfx_RGBTo1555(0x53, 0x8d, 0x4e);
+	gfx_palette[TEXT] = gfx_RGBTo1555(255, 255, 255);
+	gfx_palette[STATUS] = gfx_RGBTo1555(0, 0, 0);
 }
 
 // Key-letter lookup table
@@ -34,52 +34,52 @@ const uint8_t KEYMAP[26] =
 };
 
 // Game configuration
-#define WORD_LENGTH 	5
-#define GAME_TRIES 		6
+#define WORD_LENGTH		5
+#define GAME_TRIES		6
 
 // Graphics constants
-#define CELL_SIZE 		25
-#define CELL_SPACING 	1
-#define GAME_WIDTH 		(WORD_LENGTH * CELL_SIZE + (WORD_LENGTH - 1) * CELL_SPACING)
-#define GAME_HEIGHT 	(GAME_TRIES * CELL_SIZE + (GAME_TRIES - 1) * CELL_SPACING)
-#define GAME_LEFT 		((320 / 2) - (GAME_WIDTH / 2))
-#define GAME_TOP 		((240 / 2) - (GAME_HEIGHT / 2))
+#define CELL_SIZE		25
+#define CELL_SPACING	1
+#define GAME_WIDTH		(WORD_LENGTH * CELL_SIZE + (WORD_LENGTH - 1) * CELL_SPACING)
+#define GAME_HEIGHT		(GAME_TRIES * CELL_SIZE + (GAME_TRIES - 1) * CELL_SPACING)
+#define GAME_LEFT		((320 / 2) - (GAME_WIDTH / 2))
+#define GAME_TOP		((240 / 2) - (GAME_HEIGHT / 2))
 #define FONT_SIZE		24
 
 // Returns the scancode of the pressed key (when it is first pushed down)
 // 0 if no key is pressed
 uint8_t get_single_key_pressed(void) 
 {
-    static uint8_t last_key;
-    uint8_t only_key = 0;
-    kb_Scan();
-    for (uint8_t key = 1, group = 7; group; --group) 
-    {
-        for (uint8_t mask = 1; mask; mask <<= 1, ++key) 
-        {
-            if (kb_Data[group] & mask) 
-            {
-                if (only_key) 
-                {
-                    last_key = 0;
-                    return 0;
-                } 
-                else 
-                {
-                    only_key = key;
-                }
-            }
-        }
-    }
-    if (only_key == last_key) 
-    {
-        return 0;
-    }
-    last_key = only_key;
-    return only_key;
+	static uint8_t last_key;
+	uint8_t only_key = 0;
+	kb_Scan();
+	for (uint8_t key = 1, group = 7; group; --group) 
+	{
+		for (uint8_t mask = 1; mask; mask <<= 1, ++key) 
+		{
+			if (kb_Data[group] & mask) 
+			{
+				if (only_key) 
+				{
+					last_key = 0;
+					return 0;
+				} 
+				else 
+				{
+					only_key = key;
+				}
+			}
+		}
+	}
+	if (only_key == last_key) 
+	{
+		return 0;
+	}
+	last_key = only_key;
+	return only_key;
 }
 
-char lose[]  = "The word was: XXXXX";
+char lose[] = "The word was: XXXXX";
 char* word = &lose[14]; // horrible C-string hack, saves a string allocation
 
 typedef struct
@@ -314,28 +314,28 @@ int main(void)
 		return 1;
 	}
 	
-    gfx_Begin();
-    
-    init_palette();
+	gfx_Begin();
+	
+	init_palette();
 
-    gfx_SetDrawBuffer();
+	gfx_SetDrawBuffer();
 
-    while (1) 
-    { 
+	while (1) 
+	{ 
 		gfx_FillScreen(TEXT);
 		
-        draw_grid();
+		draw_grid();
 		
 		display_status_message();
-        
-        gfx_SwapDraw();
-        
-        uint8_t key;
-        while (!(key = get_single_key_pressed()));
-        
-        invalid_word_warning = false; // clear warning status
-        
-        if (key == sk_Clear)
+		
+		gfx_SwapDraw();
+		
+		uint8_t key;
+		while (!(key = get_single_key_pressed()));
+		
+		invalid_word_warning = false; // clear warning status
+		
+		if (key == sk_Clear)
 		{
 			break;
 		}
@@ -374,11 +374,11 @@ int main(void)
 				}
 			}
 		}
-    }
+	}
 
 	save_stats();
 	ti_Close(stats);
-    gfx_End();
+	gfx_End();
 
-    return 0;
+	return 0;
 }
